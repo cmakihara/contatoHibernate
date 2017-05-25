@@ -23,9 +23,30 @@ public class TelaPrincipal extends TelaPrincipalBase {
 		limparCampos();
 		configurarBotoes();
 		configuraTabela();
+		configuraMenus();
 	}
 
 	
+	private void configuraMenus() {
+		super.mntmImprimir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ReportManager rm = new ReportManager();
+				rm.imprimir();
+			}
+		});
+		super.mntmExportarPdf.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ReportManager rm = new ReportManager();
+				rm.exportar();				
+			}
+		});
+				
+		
+	}
+
+
 	private void configuraTabela() {
 		
 		ContatoDao dao = new ContatoDao();
