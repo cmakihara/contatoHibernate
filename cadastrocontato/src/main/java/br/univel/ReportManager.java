@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import br.univel.reports.custom.CustomContatoReport;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -51,4 +54,50 @@ public class ReportManager {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
+	public void exportarCustom() {
+		String strFile = "C:\\Users\\fernandod\\"
+				+ "JaspersoftWorkspace\\MyReports"
+				+ "\\CustomFields.jasper";
+		
+		ContatoDao dao = new ContatoDao();
+		List<Contato> lista = dao.getTodos();
+		
+		JRDataSource customDs = new CustomContatoReport(lista);
+
+		JasperPrint jp;
+		try {
+			jp = JasperFillManager.fillReport(strFile, null, customDs);
+			
+			Locale locale = Locale.getDefault();
+			JasperViewer.viewReport(jp, false, locale);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void main(String[] args) {
+		ReportManager rm = new ReportManager();
+		rm.exportarCustom();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
