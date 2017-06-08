@@ -21,6 +21,11 @@ public class TelaPrincipal extends TelaPrincipalBase {
 	public TelaPrincipal() {
 		super();
 		limparCampos();
+		
+		// chamar bloqueio do login
+		// passando um runnable que se
+		// tiver ok, configura os itens abaixo.
+		
 		configurarBotoes();
 		configuraTabela();
 		configuraMenus();
