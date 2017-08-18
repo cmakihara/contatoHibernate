@@ -3,7 +3,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.univel</groupId>
-	<artifactId>cadastrocontato</artifactId>
+	<artifactId>cadastrocontatohb</artifactId>
 	<version>1.0</version>
 	<name>CadastroContatos</name>
 	<description>Exemplo de cadastro simples em Java.</description>
@@ -14,6 +14,13 @@
 	</properties>
 
 	<dependencies>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.1.0.Final</version>
+		</dependency>	
+		
 
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>

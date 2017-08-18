@@ -1,24 +1,35 @@
-package br.univel.caddois;
+package br.univel;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
-import br.univel.Contato;
-import br.univel.ContatoDao;
-import br.univel.ContatoModel;
-import br.univel.ReportManager;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
-public class PainelContato extends PainelContatoBase {
+import br.univel.dao.ContatoDaoFactory;
+import br.univel.dao.ContatoDaoIF;
+
+import javax.swing.UnsupportedLookAndFeelException;
+
+public class TelaPrincipal extends TelaPrincipalBase {
+	
 	private Contato contatoSelecionado;
 	
 	private ContatoModel modelo;
 	
-	public PainelContato() {
+	public TelaPrincipal() {
 		super();
 		limparCampos();
+		
+		// chamar bloqueio do login
+		// passando um runnable que se
+		// tiver ok, configura os itens abaixo.
+		
 		configurarBotoes();
 		configuraTabela();
 		configuraMenus();
@@ -47,7 +58,7 @@ public class PainelContato extends PainelContatoBase {
 
 	private void configuraTabela() {
 		
-		ContatoDao dao = new ContatoDao();
+		ContatoDaoIF dao = ContatoDaoFactory.criar();
 		List<Contato> lista = dao.getTodos();
 		
 		this.modelo = new ContatoModel(lista);
@@ -170,5 +181,40 @@ public class PainelContato extends PainelContatoBase {
 		super.txfTelefone.setText("");
 		
 		super.btnExcluir.setEnabled(false);
+	}
+
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		
+		try {
+//			UIManager.setLookAndFeel(
+//			        UIManager.getSystemLookAndFeelClassName());
+			
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+			
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaPrincipal frame = new TelaPrincipal();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
